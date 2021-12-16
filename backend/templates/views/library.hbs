@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Notes App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <style>
+        #delete {
+            background-color: rgb(54, 212, 233);
+            border: none;
+            width: 120px;
+            height: 34px;
+            border-radius: 30px;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+
+        #dropicon {
+            color: white;
+            width: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">GyanSagar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0" id="navForm">
+                <input class="form-control mr-sm-2" id="searchTxt" type="search" placeholder="Search"
+                    aria-label="Search">
+                <div id="dropIconDiv">
+                    <i class="fas fa-caret-square-down" id="dropicon" onclick="drop()"></i>
+                </div>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searching">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container my-3">
+        <h1>Library</h1>
+        <hr>
+        <form id="libraryForm">
+            <div class="form-group row">
+                <label for="bookName" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="bookName" placeholder="Book Name">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Author" class="col-sm-2 col-form-label">Author</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="author" placeholder="Author">
+                </div>
+            </div>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Type</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="type" id="fiction" value="fiction"
+                                checked>
+                            <label class="form-check-label" for="fiction">
+                                Fiction
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="type" id="programming"
+                                value="programming">
+                            <label class="form-check-label" for="programming">
+                                Computer Programming
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="type" id="cooking" value="cooking">
+                            <label class="form-check-label" for="cooking">
+                                Cooking
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Add Book</button>
+                </div>
+            </div>
+        </form>
+
+
+        <div id="table">
+            <h1 id="yourbook">Your books</h1>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Delete</th>
+                        <th scope="col">Edit</th>
+                    </tr>
+                </thead>
+                <tbody id='tableBody'></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script>
+        function book(gname, gauthor, gtype, gid) {
+            this.name = gname;
+            this.author = gauthor;
+            this.type = gtype;
+            this.id = gid;
+        }
+
+        let tableBody = document.getElementById('tableBody');
+        let bookname = document.getElementById('bookName');
+        let author = document.getElementById('author');
+        let fiction = document.getElementById('fiction');
+        let programming = document.getElementById('programming');
+        let cooking = document.getElementById('cooking');
+        let yourbook = document.getElementById('yourbook');
+
+        let testing = document.getElementById('e0');
+
+        // console.log('bookname : ',bookname);
+        // console.log('author : ',author);
+
+        let libraryForm = document.getElementById('libraryForm');
+
+        if(localStorage.getItem('booklist') == null)
+        {
+            localStorage.setItem('booklist',JSON.stringify([{id : '0'}]));
+            del(0);
+        }    
+
+        function reassign(){
+            console.log("reassign")
+            getbooklist = JSON.parse(localStorage.getItem('booklist'));
+            console.log('1 : ',getbooklist);
+
+            getbooklist.forEach(function (element,index){
+                element.id = index;
+            });
+            localStorage.setItem('booklist', JSON.stringify(getbooklist));
+            console.log(getbooklist);
+        }
+        reassign();
+        displaytable('booklist');
+
+        function findType() {
+            let type;
+            if (fiction.checked) {
+                type = fiction.value;
+            }
+            else if (programming.checked) {
+                type = programming.value;
+            }
+            else {
+                type = cooking.value;
+            }
+            return type;
+        }
+                
+
+
+        let valueofi = JSON.parse(localStorage.getItem('booklist'));
+        let i; 
+        if(valueofi.length == null){
+            i = 0
+        }
+        else{
+         i = valueofi[valueofi.length-1] + 1;
+        }
+        
+ 
+        libraryForm.addEventListener('submit', function (e) {
+            let type = findType();
+            let book1 = new book(bookname.value, author.value, type, i++);
+            
+            getbooklist = localStorage.getItem('booklist');
+            console.log('getbooklist : ',JSON.parse(getbooklist));
+            let bookarray = [];
+            if (getbooklist == null) {
+                bookarray = [];
+            }
+            else {
+                bookarray = JSON.parse(getbooklist);
+            }
+            bookarray.push(book1);
+            localStorage.setItem('booklist', JSON.stringify(bookarray));
+            e.preventDefault();
+            // console.log('local storage without parse : ',localStorage.getItem('booklist'));
+            // console.log('local storage with parse : ',JSON.parse(localStorage.getItem('booklist')));
+
+
+            // console.log('form get submitted');
+            displaytable('booklist');
+
+        });
+
+
+        function displaytable(a) {
+            // console.log('table body : ',tableBody);
+            getbooklist = localStorage.getItem(`${a}`);
+            libraryForm.reset();
+            // console.log('getbooklist : ',JSON.parse(getbooklist));
+            let bookarray = JSON.parse(getbooklist);
+            let htm = [];
+            // console.log('bookarray inside displaytabel : ',bookarray);
+            if (bookarray != null)
+                bookarray.forEach(function (element, index) {
+                    if(element != 0){
+                    html = `<tr id="t${element.id}">
+        <td style = "vertical-align: middle;" id ="name${element.id}">${element.name}</td>
+        <td style = "vertical-align: middle;" id ="author${element.id}">${element.author}</td>
+        <td style = "vertical-align: middle;">${element.type}</td>
+        <td><button type="submit"  onclick="del(${element.id})" class="btn btn-primary delete" id="${element.id}" >Delete</button></td>
+        <td><button type="submit"  onclick="edit('${element.id}')" class="btn btn-primary delete" id="e${element.id}" >Edit</button></td>
+      </tr>`
+                    htm = htm + html;
+    }
+                });
+            tableBody.innerHTML = htm;
+        }
+
+        function del(a) {
+            console.log(a);
+            let bookarray = [];
+            bookarray = JSON.parse(localStorage.getItem('booklist'));
+            console.log(bookarray)
+            bookarray.splice(a, 1);
+            console.log(bookarray)
+            localStorage.setItem('booklist', JSON.stringify(bookarray));
+            yourbook.innerHTML = 'Your books';
+
+            reassign();
+            displaytable('booklist');
+        }
+
+        function edit(a) {
+            let trid = "t" + a;
+            let wantEdits = document.getElementById(trid);
+            let originalName = "name" + a;
+            origrinalName = document.getElementById(originalName).innerText;
+            let originalAuthor = "author" + a;
+            originalAuthor = document.getElementById(originalAuthor).innerText;
+            let html = `<tr id="t${a}">
+    <td style = "vertical-align: middle;"><input type="text" class="form-control" id="b${a}" placeholder="Book Name" value = "${origrinalName}"></td>
+    <td style = "vertical-align: middle;"><input type="text" class="form-control" id="au${a}" placeholder="Author" value = "${originalAuthor}"></td>
+    <td style = "vertical-align: middle;">  <select class="btn btn-primary" id = "ty${a}">
+    <option value="fiction">Fiction</option>
+    <option value="Programming">Computer Programming</option>
+    <option value="Cooking">Cooking</option>
+  </select></td>
+    <td colspan = "2" align = "center"><button type="submit" class="btn btn-primary" onclick = "editComplete(${a})">submit</button></td>
+  </tr>`
+            wantEdits.innerHTML = html;
+        };
+
+
+        function editComplete(a) {
+            let b = 'b' + a;
+            let au = 'au' + a;
+            let t = 'ty' + a;
+            let bookname1 = document.getElementById(b);
+            let author1 = document.getElementById(au);
+            let type1 = document.getElementById(t);
+
+            let selectedType = type1.options[type1.selectedIndex].value;
+            let book1 = new book(bookname1.value, author1.value, selectedType,a);
+            del(a);
+            getbooklist = localStorage.getItem('booklist');
+            // console.log('getbooklist : ',JSON.parse(getbooklist));
+            let bookarray = [];
+            if (getbooklist == null) {
+                bookarray = [];
+            }
+            else {
+                bookarray = JSON.parse(getbooklist);
+            }
+            bookarray.push(book1);
+            localStorage.setItem('booklist', JSON.stringify(bookarray));
+            yourbook.innerHTML = 'Your books';
+
+            reassign();
+            displaytable('booklist');
+        }
+
+        function drop() {
+            console.log('i see it');
+            let dropicondiv = document.getElementById('dropIconDiv');
+            // let dropicondiv = document.getElementById('dropIconDiv');
+            console.log(dropicondiv);
+            // let html = document.createElement('div')
+            // html.id = 'divDropIconSelect'
+            dropicondiv.innerHTML = `<select class="form-control mr-sm-2" id = "dropIconSelect">
+    <option value="BookName">Book Name</option>
+    <option value="Author">Author</option>
+    <option value="Type">Type</option>
+  </select>`
+        }
+
+        let searching = document.getElementById('searching');
+
+        searching.addEventListener('click', function (e) {
+            e.preventDefault();
+            getbooklist = JSON.parse(localStorage.getItem('booklist'));
+            yourbook.innerText = 'Search Result';
+            yourbook.innerHTML = 'Search Result<sup id="cross"><div style="font-size: 15px; display:inline;"><i class="fas fa-times " style="margin-left:10px; color:red;" ></i></div></sup>';
+            let selectedDrop = document.getElementById('dropIconSelect');
+            let val = selectedDrop.options[selectedDrop.selectedIndex].value;
+            console.log('selected value in search : ', val)
+            let searchTxt = document.getElementById('searchTxt');
+            let newarray = [];
+            if (val == 'Type') {
+                getbooklist.forEach(function (element, index) {
+                    if (searchTxt.value.toLowerCase() == element.type.toLowerCase())
+                        newarray.push(element)
+                });
+
+            }
+            else if (val == 'Author') {
+                getbooklist.forEach(function (element, index) {
+                    if ((element.author.toLowerCase()).includes(searchTxt.value.toLowerCase()))
+                        newarray.push(element)
+                });
+            }
+            else {
+                getbooklist.forEach(function (element, index) {
+                    if ((element.name.toLowerCase()).includes(searchTxt.value.toLowerCase()))
+                        newarray.push(element)
+                });
+            }
+            console.log(newarray)
+            localStorage.setItem('booklist1', JSON.stringify(newarray));
+            // console.log('booklist : ', localStorage.getItem('booklist'));
+            // console.log('booklist1 : ', localStorage.getItem('booklist1'));
+            displaytable('booklist1');
+            let cross = document.getElementById('cross');
+            cross.addEventListener('click', function (e) {
+                yourbook.innerHTML = 'Your books';
+
+                displaytable('booklist');
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>

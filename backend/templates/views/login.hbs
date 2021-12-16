@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+        div{
+            text-align:center;
+            margin:50px;
+        }
+        h1{
+            margin:20px;
+            font-size:58px;
+            color:#2BAE66FF;
+            font-weight: bold;
+        }
+        h2{
+            margin:0px;
+            font-size:30px;
+            font-weight: bold;
+        }
+        h4{
+            margin:0px;
+            font-size:20px;
+            word-spacing:3px;
+            margin-bottom:40px;
+        }
+        form{
+            background-color:white;
+            width:500px;
+            margin:auto;
+            padding:0px;
+        }
+        .but{
+            background-color:white;
+            border: white;
+            font-size:20px;
+            font-weight:bold;
+            text-align: center;
+            width:248px;
+            padding:0px;
+            padding-top:10px;  
+            padding-bottom:10px;
+            cursor: pointer;
+        }
+        button:active{
+            background-color:#f3f7f7;
+        }
+        input{
+            border:none;
+            background-color:#f3f7f7;
+            padding:0px;
+            font-size: 20px;
+            width:420px;
+            height:50px;
+            margin:10px;
+        }
+
+        Form{
+            padding-bottom: 100px;
+        }
+
+        .but1{
+            background-color:#ECEEEA ;    
+          
+        }
+        
+    </style>
+<body bgcolor="f3f7f7">
+    <div>
+        {{#if message}}
+        <div class="alert alert-{{message.type}}" role="alert" style="color:red"> 
+         <strong>{{message.intro}}</strong>
+        </div>
+        {{/if}}
+        <h1 style="color:#2BAE66FF;">GyanSagar</h1>
+        <h2>For Learner</h2>
+        <h4>Learn, prepare and have fun</h4>
+        <Form action="/login" method="POST">
+            <a href="/register" ><button class="but">Sign up</button></a>
+            <button type="button" class="but1 but">Log in</button>
+
+            <input type="email" id="fname"placeholder="  username or email" name="email"></input>
+            <input type="password" id="fname" placeholder="  Password" name="password" ></input>
+            <button type="submit" class="but" style="color:white;background-color: #1ba94c;float:right;margin:40px;width:130px;">Log in</button>
+        </Form>
+    </div>
+   </body>
+</html>

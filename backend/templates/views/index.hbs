@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+  
+    <style>
+        * {
+            margin: 0px;
+        }
+
+
+        .name {
+            font-family: Sofia;
+            font-weight: 400px;
+            text-decoration: none;
+            color: rgb(4, 228, 4);
+            font-size: 28px;
+            margin-left: 200px;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 20px;
+            color: rgba(87, 87, 87, 0.815);
+        }
+
+        nav {
+            padding:10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            box-shadow: 0.5px 0.5px rgb(129, 129, 129);
+        }
+
+        .home {
+            margin-left: auto;
+        }
+
+        .nav {
+            padding-left: 20px;
+        }
+
+        .login {
+            margin-left: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 10px;
+            background-color: rgb(17, 211, 236);
+            color: white;
+            margin-right: 200px;
+        }
+
+        img{
+            height:450px;
+        }
+
+        .cont1{
+            margin-top:110px ;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            margin-left:200px ;
+            margin-right: 200px;
+        }
+
+        h1,h3,h4{
+            margin: 10px;
+        }
+
+        h4{
+            color:rgb(0, 110, 255);
+            font-size:24px;
+        }
+
+        h3{
+            font-size:26px;
+            color:rgb(147, 147, 148);
+        }
+
+        h1{
+            font-size:40px;
+            font-weight:900;        
+        }
+
+        .register{
+            margin: 10px;
+            height:60px;
+            width: 140px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 900;
+            color: white;
+            background: rgb(131,58,180);
+background: linear-gradient(22deg, rgba(131,58,180,1) 43%, rgba(29,94,253,1) 100%, rgba(252,176,69,1) 100%);
+            border:none;
+            box-shadow: 5px 5px rgba(54, 18, 18, 0.199) , -5px 5px rgba(80, 80, 80, 0.199);
+        }
+
+        .card{
+            background-color: rgb(235, 235, 235);
+        }
+
+        
+ @keyframes spaceboots {
+	0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+	50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+  100% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+}
+.shake
+{
+	animation-name: spaceboots;
+animation-duration: 2s;
+transform-origin:50% 50%;
+animation-iteration-count: infinite;
+animation-timing-function: linear;
+}
+
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="/" class="name">GyanSagar.com</a>
+        <a href="/" class="nav home">HOME</a>
+        <a href="/library" class="nav video">LIBRARY</a>
+        <a href="#" class="nav contact">CONTACT</a>
+        <a href="/register" class="login">SIGNUP</a>
+    </nav>
+
+    <div class="cont1">
+        <div class="inner">
+            <h4>Welcome to GyanSagar</h4>
+            <h1>GyanSagar is the one stop
+                for all students</h1>
+            <h3>Get here study material for all classes, entrance exams, and competitive exams and latest education news.</h3>
+            
+            <a href="/register"><button class="register">Register Now</button></a>
+          
+        </div>
+        <img src="https://aglasem.com/home/assets/images/aglasem-home-page-alt-3.png" class="shake">
+    </div>
+</body>
+</html>
